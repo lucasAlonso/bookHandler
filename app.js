@@ -6,7 +6,7 @@ idCount = 1;
 const app = express();
 
 let author_routes = require('./routes/author-routes');
-let author_routes = require('./routes/author-routes');
+let books_routes = require('./routes/books-routes');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

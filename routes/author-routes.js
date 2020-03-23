@@ -1,18 +1,14 @@
 const express = require('express');
-const server = express.Router();
 const middlewares = require('../middlewares/middleapp.js');
 const authorController = require('../controllers/author.js');
 
-module.exports = server;
+const api = express.Router();
 
-server.get('/autores', middlewares.validarAutor, authorController.getAuthor);
+api.get('/autores', middlewares.validarAutor, authorController.getAuthor);
+api.get('/autores/:id', middlewares.validarAutorbyId, authorController.getAuthorById);
+api.delete('/autores/:id', middlewares.validarAutorbyId, authorController.deleteAuthorById);
 
-server.get(
-    '/autores/:id',
-    middlewares.validarAutorId,
-    authorControllers.getAuthorById
-);
-
+module.exports = api;
 /* server.delete('/autores/:id', (req, res) => {
     let autorFinded = autores.find(
         autor => autor.id === parseInt(req.params.id)
