@@ -3,21 +3,35 @@ function getAuthor(req, res) {
 }
 
 function getAuthorById(req, res) {
-    let autorFinded = autores.find(autor => autor.id === parseInt(req.params.id));
-
+    let autorFinded = autores[req.indexAuthor];
     res.json(autorFinded);
 }
 
 function deleteAuthorById(req, res) {
-    let autorFinded = autores.find(autor => autor.id === parseInt(req.params.id));
-    let indexToDelete = autores.indexOf(autorFinded);
-
-    autores.splice(indexToDelete, 1);
+    autores.splice(req.indexAuthor, 1);
     res.status(200).send('deleted');
 }
 
+function postAuthor(req, res) {
+    let autor = req.body;
+    autor.id = idCount;
+    autores.push(autor);
+    idCount++;
+
+    res.status(201).send('autor Creado');
+}
+
+function putAuthor(req, res) {
+    autores[req.indexAuthor].nombre = req.params.nombre;
+    autores[req.indexAuthor].apellido = req.params.apellido;
+    autores[req.indexAuthor].fechaDeNacimiento = req.params.fechaDeNacimiento;
+
+    res.status(204).send('autor modificado');
+}
 module.exports = {
     getAuthor,
     getAuthorById,
-    deleteAuthorById
+    deleteAuthorById,
+    postAuthor,
+    putAuthor
 };
